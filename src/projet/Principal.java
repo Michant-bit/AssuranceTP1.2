@@ -1,43 +1,25 @@
 package projet;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class Principal {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
-		trouverNombreClient();
+		BufferedReader lecteurAvecBuffer = null;
+        String ligne;
 
-	}
-	
-	private static int trouverNombreClient(){
-		
-		try {
-			
-			FileInputStream fichier = new FileInputStream("Fichier.txt");
-			InputStreamReader lecture = new InputStreamReader(fichier);
-			BufferedReader buff = new BufferedReader(lecture);
-			String[] lignes;
-			String ligne;
-			int nbLignes = 0;
-			
-			while ((ligne = buff.readLine()) != null) {
-				System.out.println(ligne);
-				nbLignes++;
-			}
-			
-			buff.close();
-			
-		} catch (Exception e) {
-			
-			System.out.println(e.toString());
-			
-		}
-		
-		
-		return 0;
-	}
+        try
+          {
+        lecteurAvecBuffer = new BufferedReader(new FileReader("test.txt"));
+          }
+        catch(FileNotFoundException exc)
+          {
+        System.out.println("Erreur d'ouverture");
+          }
+        while ((ligne = lecteurAvecBuffer.readLine()) != null)
+          System.out.println(ligne);
+        lecteurAvecBuffer.close();
+      }
 
 }
