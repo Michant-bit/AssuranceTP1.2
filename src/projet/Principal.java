@@ -23,6 +23,8 @@ public class Principal {
         
         }
         
+        System.out.println("Bienvenue chez Barette !");
+        
         for (int i = 0; lecteurAvecBuffer.readLine() != null; i++) {
         	
         	ligne = lecteurAvecBuffer.readLine();
