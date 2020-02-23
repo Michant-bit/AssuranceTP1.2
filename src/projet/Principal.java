@@ -8,8 +8,12 @@ public class Principal {
 		
 		BufferedReader lecteurAvecBuffer = null;
 		String[] fichier = new String[13];
+		String[] nom = null;
+		String[] plat = null;
+		String[] commande = null;
+		float[] prix = null;
+		int nombre = 0;
 		String ligne;
-        int nb = 0;
 
         try {
         	
@@ -26,11 +30,154 @@ public class Principal {
         for (int i = 0; (ligne = lecteurAvecBuffer.readLine()) != null; i++) {
             
         	fichier[i] = ligne;
-        	System.out.println( fichier[i] );
         			
         }
         
-        	lecteurAvecBuffer.close();
+        lecteurAvecBuffer.close();
+        
+        // -------------------------------------------------------------------
+        
+        nombre = nbNoms(fichier);
+        
+        nom = new String[nombre];
+        
+        for (int i = 0; i < nom.length; i++) {
+        	
+        	nom[i] = fichier[i + 1];
+        	
+        }
+        
+        // -------------------------------------------------------------------
+        
+        nombre = nbPlats(fichier, nom);
+        
+        plat = new String[nombre];
+        
+        for (int i = 0; i < plat.length; i++) {
+        	
+        	plat[i] = fichier[i + 5];
+        	
+        }
+        
+        // -------------------------------------------------------------------
+        
+        nombre = nbCommande(fichier, nom, plat);
+        
+        commande = new String[nombre];
+        
+        for (int i = 0; i < commande.length; i++) {
+        	
+        	commande[i] = fichier[i + ((nom.length + 2) + (plat.length + 1))];
+        	
+        }
+        
+        // -------------------------------------------------------------------
+        
+        System.out.println("Bienvenue  chez  Barette !");
+        
+        Client client = new Client();
+        
+        for (int i = 0; i < nom.length; i++) {
+        	
+        	for (int y = 0; y < commande.length; y++) {
+            	
+        		if(commande[y].contains( nom[i] )) {
+            		
+            		for (int x = 0; x < plat.length; x++) {
+                    	
+                    	if((plat[x].split( " " ))[0].contains( (commande[y].split( " " ))[1] )) {
+                    		
+                    		client = new Client(nom[i], (Float.parseFloat(plat[x].split( " " )[1])) * 
+                    				(Float.parseFloat(commande[y].split( " " )[2])));
+                    		
+                    	}
+                    	
+                    }
+            		
+            	} else {
+            		
+            		client = new Client(nom[i], 0.00f);
+            		
+            	}
+        		
+        		
+            	
+            }
+        	
+        	client.afficher();
+        	
+        }
         	
       }
+	
+	private static int nbNoms(String[] fichier) {
+    	
+    	int nombre = 0;
+    	
+    	for (int i = 1; i < fichier.length; i++) {
+    		
+    		if(!fichier[i].contains( ":" )) {
+    			
+    			nombre++;
+    			
+    		} else {
+    			
+    			i = fichier.length - 1;
+    			
+    		}
+    		
+    		
+    	}
+    	
+    	return nombre;
+    	
+    }
+	
+	private static int nbPlats(String[] fichier, String[] nom) {
+		
+		int nombre = 0;
+		
+		for (int i = nom.length + 2; i < fichier.length; i++) {
+    		
+    		if(!fichier[i].contains( ":" )) {
+    			
+    			nombre++;
+    			
+    		} else {
+    			
+    			i = fichier.length - 1;
+    			
+    		}
+    		
+    		
+    	}
+    	
+    	return nombre;
+		
+	}
+	
+	private static int nbCommande(String[] fichier, String[] nom, String[] plat) {
+		
+		int nombre = 0;
+		
+		for (int i = (nom.length + 2) + (plat.length + 2); i < fichier.length; i++) {
+    		
+    		if(!fichier[i].contains( ":" ) || !fichier[i].equals( "Fin" )) {
+    			
+    			nombre++;
+    			
+    		} else {
+    			
+    			i = fichier.length - 1;
+    			
+    		}
+    		
+    		
+    	}
+    	
+    	return nombre;
+		
+	}
+	
+	
 }
