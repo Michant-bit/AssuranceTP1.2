@@ -1,0 +1,4 @@
+Pas de notation hongroise
+Pas de traits d'union
+Pas de caractères accentués ni d'espaces
+Pas d'abréviations
