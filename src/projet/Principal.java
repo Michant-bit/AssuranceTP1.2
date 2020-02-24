@@ -78,7 +78,11 @@ public class Principal {
         
         Client client = new Client();
         
+        float dernier = 0.00f;
+        
         for (int i = 0; i < nom.length; i++) {
+        	
+        	dernier = 0.00f;
         	
         	for (int y = 0; y < commande.length; y++) {
             	
@@ -91,6 +95,7 @@ public class Principal {
                     		client = new Client(nom[i], (Float.parseFloat(plat[x].split( " " )[1])) * 
                     				(Float.parseFloat(commande[y].split( " " )[2])));
                     		ligneFinale += client.afficher();
+                    		dernier = client.prix;
                     		
                     	}
                     	
@@ -98,14 +103,20 @@ public class Principal {
             		
             	} else {
             		
-            		client = new Client(nom[i], 0.00f);
-            		ligneFinale += client.afficher();
+            		if(y == commande.length - 1 && dernier == 0.00f) {
+            			
+            			client = new Client(nom[i], 0.00f);
+                		ligneFinale += client.afficher();
+                		
+            		}
             		
             	}
             	
             }
         	
         }
+        
+        
         
         try (FileWriter writer = new FileWriter("Sortie.txt");
        		 BufferedWriter bw = new BufferedWriter(writer)) {
