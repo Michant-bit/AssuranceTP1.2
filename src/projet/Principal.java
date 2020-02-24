@@ -116,7 +116,26 @@ public class Principal {
         	
         }
         
+        String[] fichierFinal = ligneFinale.split( "\n" );
         
+        for (int i = 0; i < fichierFinal.length - 1; i++) {
+        	
+        	if(fichierFinal[i].split( " " )[0] == fichierFinal[i + 1].split( " " )[0]) {
+        		
+        		fichierFinal[i] = Float.toString(((Float.parseFloat(fichierFinal[i].split( " " )[1]) + 
+        				(Float.parseFloat(fichierFinal[i + 1].split( " " )[1])))));
+        		fichierFinal[i + 1] = "";
+        		
+        	}
+        }
+        
+        ligneFinale = "";
+        	
+        for (int i = 0; i < fichierFinal.length; i++) {
+        	
+        	ligneFinale += fichierFinal[i] + "\n";
+        	
+        }
         
         try (FileWriter writer = new FileWriter("Sortie.txt");
        		 BufferedWriter bw = new BufferedWriter(writer)) {
@@ -128,6 +147,29 @@ public class Principal {
        	}
         	
       }
+	
+	private static boolean validation(String[] nom, String[] commande, String[] plat) {
+		
+		boolean valide = true;
+		
+		for (int i = 0; i < commande.length; i++) {
+			
+			for (int y = 0; i < nom.length; y++) {
+				
+				if(!commande[i].split( " " )[0].contains( nom[y] )) {
+				
+					valide = false;
+					
+				}
+			
+			}
+			
+		}
+		
+		
+		return valide;
+		
+	}
 	
 	private static int nbNoms(String[] fichier) {
     	
