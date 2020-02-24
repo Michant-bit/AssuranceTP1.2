@@ -14,6 +14,7 @@ public class Principal {
 		float[] prix = null;
 		int nombre = 0;
 		String ligne;
+		String ligneFinale = "";
 
         try {
         	
@@ -73,7 +74,7 @@ public class Principal {
         
         // -------------------------------------------------------------------
         
-        System.out.println("Bienvenue  chez  Barette !");
+        ligneFinale += "Bienvenue  chez  Barette !\n";
         
         Client client = new Client();
         
@@ -89,6 +90,7 @@ public class Principal {
                     		
                     		client = new Client(nom[i], (Float.parseFloat(plat[x].split( " " )[1])) * 
                     				(Float.parseFloat(commande[y].split( " " )[2])));
+                    		ligneFinale += client.afficher();
                     		
                     	}
                     	
@@ -97,16 +99,22 @@ public class Principal {
             	} else {
             		
             		client = new Client(nom[i], 0.00f);
+            		ligneFinale += client.afficher();
             		
             	}
-        		
-        		
             	
             }
         	
-        	client.afficher();
-        	
         }
+        
+        try (FileWriter writer = new FileWriter("Sortie.txt");
+       		 BufferedWriter bw = new BufferedWriter(writer)) {
+
+       		bw.write(ligneFinale);
+
+       	} catch (IOException e) {
+       		System.err.format("IOException: %s%n", e);
+       	}
         	
       }
 	
