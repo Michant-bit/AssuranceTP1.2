@@ -48,6 +48,8 @@ public class Principal {
         	
         }
         
+        
+        
         // -------------------------------------------------------------------
         
         nombre = nbPlats(fichier, nom);
@@ -90,26 +92,45 @@ public class Principal {
             		
             		for (int x = 0; x < plat.length; x++) {
                     	
-                    	if((plat[x].split( " " ))[0].contains( (commande[y].split( " " ))[1] )) {
+                    	if((plat[x].split( " " ))[0].contains( (commande[y].split( " " ))[1] )) {	
                     		
-                    		client = new Client(nom[i], (Float.parseFloat(plat[x].split( " " )[1])) * 
+                    /*		client = new Client(nom[i], (Float.parseFloat(plat[x].split( " " )[1])) * 
                     				(Float.parseFloat(commande[y].split( " " )[2])));
+                    		
                     		ligneFinale += client.afficher();
                     		dernier = client.prix;
-                    		
+                    	*/	
+        							for (int k = 0; k < nom.length; k++) {
+        							
+        							if (nom[i].equals(nom[k])) {
+									
+        							nom[k] = nom[i];
+        							
+    								float prixTotal = ((Float.parseFloat(plat[x].split( " " )[1])) * 
+    	                    				(Float.parseFloat(commande[y].split( " " )[2]))) + ((Float.parseFloat(plat[x].split( " " )[1])) * 
+    	                    				(Float.parseFloat(commande[y].split( " " )[2])));
+    								
+    								client = new Client(nom[k],prixTotal);
+    								ligneFinale += client.afficher();
+    	                    		dernier = client.prix;
+    	                    		
+        							}
+        						}
+        				
+                    
+                 	
                     	}
+            		}
                     	
-                    }
             		
-            	} else {
-            		
+            
             		if(y == commande.length - 1 && dernier == 0.00f) {
             			
             			client = new Client(nom[i], 0.00f);
                 		ligneFinale += client.afficher();
-                		
             		}
             		
+
             	}
             	
             }
@@ -239,6 +260,4 @@ public class Principal {
     	return nombre;
 		
 	}
-	
-	
 }
