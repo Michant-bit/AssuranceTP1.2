@@ -1,1 +1,6 @@
-Kenny Linh: Début de la partie 3 du projet AQL - Tâches
+Partage de tâches
+
+Kenny Linh: Afficher toutes les commande incorrects (detail de la commande et la raison de l'erruer), 
+
+les taxes (TPS 5% et TVQ 9,975%).
+
