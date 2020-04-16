@@ -7,7 +7,7 @@ public class Client {
 	private static DecimalFormat df = new DecimalFormat("0.00");
 	
 	String nom;
-	float prix;
+	public float prix;
 	
 	public Client() {
 		
